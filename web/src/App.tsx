@@ -1,6 +1,7 @@
 import { sampleJobs } from './sampleJobs';
+import { JobCard } from './JobCard';
 
-function App() {
+export function App() {
   return (
     <main>
       <h1>Job Tracker</h1>
@@ -8,12 +9,12 @@ function App() {
         <h2>Saved Jobs</h2>
         <ul>
           {sampleJobs.map((job) => (
-            <li key={job.id}>{job.companyName}</li>
+            <li key={job.id}>
+              <JobCard job={job} />
+            </li>
           ))}
         </ul>
       </section>
     </main>
   );
 }
-
-export default App;
