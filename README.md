@@ -14,7 +14,7 @@ A job application tracking web app (in progress). Frontend: React + TypeScript. 
 
 ### Prerequisites
 
-* Node 22
+* Node 24
 
 ### Commands
 
