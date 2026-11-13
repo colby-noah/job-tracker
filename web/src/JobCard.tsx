@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react';
+
+import { formatSalary } from './format';
 import type { Job } from './types';
 
 interface JobCardProps {
@@ -20,6 +22,8 @@ function DetailRow({ label, children }: DetailRowProps) {
 }
 
 export function JobCard({ job }: JobCardProps) {
+  const salary = formatSalary(job.salaryMin, job.salaryMax);
+
   return (
     <article
       style={{
@@ -48,6 +52,7 @@ export function JobCard({ job }: JobCardProps) {
         }}
       >
         <DetailRow label="Work model">{job.workModel}</DetailRow>
+        {salary !== '' && <DetailRow label="Salary">{salary}</DetailRow>}
         {job.experienceLevel != null && (
           <DetailRow label="Experience level">{job.experienceLevel}</DetailRow>
         )}
