@@ -1,5 +1,5 @@
+import { JobList } from './JobList';
 import { sampleJobs } from './sampleJobs';
-import { JobCard } from './JobCard';
 
 export function App() {
   return (
@@ -7,21 +7,7 @@ export function App() {
       <h1>Job Tracker</h1>
       <section>
         <h2>Saved Jobs</h2>
-        <ul
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '24px',
-            listStyle: 'none',
-            padding: 0,
-          }}
-        >
-          {sampleJobs.map((job) => (
-            <li key={job.id}>
-              <JobCard job={job} />
-            </li>
-          ))}
-        </ul>
+        <JobList jobs={sampleJobs}></JobList>
       </section>
     </main>
   );
