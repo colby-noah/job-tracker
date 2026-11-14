@@ -1,14 +1,20 @@
+import { Container, Typography } from '@mui/material';
+
 import { JobList } from './JobList';
 import { sampleJobs } from './sampleJobs';
 
 export function App() {
   return (
-    <main>
-      <h1>Job Tracker</h1>
+    <Container component="main" sx={{ py: 3 }}>
+      <Typography component="h1" variant="h4" gutterBottom>
+        Job Tracker
+      </Typography>
       <section>
-        <h2>Saved Jobs</h2>
-        <JobList jobs={sampleJobs}></JobList>
+        <Typography component="h2" variant="h5" gutterBottom>
+          Saved Jobs
+        </Typography>
+        <JobList jobs={sampleJobs} />
       </section>
-    </main>
+    </Container>
   );
 }
