@@ -1,4 +1,5 @@
 import js from '@eslint/js';
+import stylistic from '@stylistic/eslint-plugin';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import reactHooks from 'eslint-plugin-react-hooks';
@@ -14,11 +15,13 @@ export default defineConfig([
     files: ['**/*.{js,ts,tsx}'],
     plugins: {
       'simple-import-sort': simpleImportSort,
+      '@stylistic': stylistic,
     },
     rules: {
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
       eqeqeq: ['error', 'always', { null: 'ignore' }],
+      '@stylistic/jsx-self-closing-comp': 'error',
     },
   },
   // Config files run in Node
