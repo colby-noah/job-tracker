@@ -1,13 +1,35 @@
 import js from '@eslint/js';
-import globals from 'globals';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import globals from 'globals';
 import tseslint from 'typescript-eslint';
-import eslintConfigPrettier from 'eslint-config-prettier/flat';
-import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig([
   globalIgnores(['dist']),
+  // All files: import sorting and strict equality
+  {
+    files: ['**/*.{js,ts,tsx}'],
+    plugins: {
+      'simple-import-sort': simpleImportSort,
+    },
+    rules: {
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
+      eqeqeq: ['error', 'always', { null: 'ignore' }],
+    },
+  },
+  // Config files run in Node
+  {
+    files: ['*.js'],
+    extends: [js.configs.recommended],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
+  // App code: type-aware TypeScript and React rules
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -25,5 +47,19 @@ export default defineConfig([
       },
     },
   },
+  // Named exports only in src (tool configs like vite.config.ts need default exports)
+  {
+    files: ['src/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'ExportDefaultDeclaration',
+          message: 'Use named exports.',
+        },
+      ],
+    },
+  },
+  // Must stay last: turns off rules that conflict with Prettier
   eslintConfigPrettier,
 ]);
