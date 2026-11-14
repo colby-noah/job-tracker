@@ -33,5 +33,17 @@ export default defineConfig([
       'simple-import-sort/exports': 'error',
     },
   },
+  {
+    files: ['src/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'ExportDefaultDeclaration',
+          message: 'Use named exports.',
+        },
+      ],
+    },
+  },
   eslintConfigPrettier,
 ]);
