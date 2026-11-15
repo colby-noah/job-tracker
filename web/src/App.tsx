@@ -1,5 +1,5 @@
 import { Container, Typography } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { AddJobForm } from './AddJobForm';
 import { JobList } from './JobList';
@@ -7,7 +7,19 @@ import { sampleJobs } from './sampleJobs';
 import type { Job } from './types';
 
 export function App() {
-  const [jobs, setJobs] = useState(sampleJobs);
+  const [jobs, setJobs] = useState<Job[]>(() => {
+    try {
+      const savedJobs = localStorage.getItem('jobs');
+
+      return savedJobs !== null ? (JSON.parse(savedJobs) as Job[]) : sampleJobs;
+    } catch {
+      return sampleJobs;
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem('jobs', JSON.stringify(jobs));
+  }, [jobs]);
 
   const handleAdd = (job: Job) => setJobs([...jobs, job]);
 
