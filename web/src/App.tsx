@@ -4,9 +4,12 @@ import { useState } from 'react';
 import { AddJobForm } from './AddJobForm';
 import { JobList } from './JobList';
 import { sampleJobs } from './sampleJobs';
+import type { Job } from './types';
 
 export function App() {
   const [jobs, setJobs] = useState(sampleJobs);
+
+  const handleAdd = (job: Job) => setJobs([...jobs, job]);
 
   return (
     <Container component="main" sx={{ py: 3 }}>
@@ -23,7 +26,7 @@ export function App() {
         <Typography component="h2" variant="h5" gutterBottom>
           Add Job
         </Typography>
-        <AddJobForm />
+        <AddJobForm onAdd={handleAdd} />
       </section>
     </Container>
   );
